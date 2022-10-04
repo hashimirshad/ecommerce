@@ -27,7 +27,8 @@ class TestProductsModel(TestCase):
         Category.objects.create(name='django',slug='django')
         #create user
         User.objects.create(username='admin')
-        self.data1 = Product.objects.create(category_id=1,title ='django beginners',created_by_id=1,slug='django beginners',price='100.00',image='django')
+        self.data1 = Product.objects.create(category_id=1,title ='django beginners',created_by_id=1,slug='django-beginners',price='100.00',image='django')
+    #test data for product
     def test_category_model_entry(self):
         data =self.data1
         self.assertTrue(isinstance(data,Product))
