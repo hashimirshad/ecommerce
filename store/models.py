@@ -5,6 +5,7 @@ from unicodedata import category
 from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse #tool alllow us to build url
 
 
 class Category(models.Model):
@@ -13,6 +14,10 @@ class Category(models.Model):
     #define another names  
     class Meta:
         verbose_name_plural =  'categories'  
+    
+    def get_absolute_url(self):
+        #store = app_name ,product_detsil =url name path (collecting url)
+        return reverse('store:category_list', args=[self.slug])
     def __str__(self):
         return self.name
 
@@ -27,7 +32,7 @@ class Product(models.Model):
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='images/')
     slug = models.SlugField(max_length=255)
-    price = models.DecimalField(max_digits=4,decimal_places=2)
+    price = models.DecimalField(max_digits=6,decimal_places=2)
     in_stock = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -37,6 +42,11 @@ class Product(models.Model):
         verbose_name_plural = 'products'
         #desending order last added will show first
         ordering = ('-created',)
+    #auto url for each product
+    def get_absolute_url(self):
+        #store = app_name ,product_detsil =url name path
+        return reverse('store:product_detail', args=[self.slug])
+    
     
     def __str__(self):
         return self.title
