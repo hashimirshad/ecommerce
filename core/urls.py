@@ -20,9 +20,10 @@ from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('store.urls',namespace='store')),
+    path('', include('store.urls', namespace='store')),
+    path('basket/', include('basket.urls', namespace='basket')),
 ]
 
-#the (errors will show) urls when debug is TRUE in setting.py 
+# the (errors will show) urls when debug is TRUE in setting.py
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL,document_root= settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

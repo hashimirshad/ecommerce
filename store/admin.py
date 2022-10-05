@@ -6,14 +6,15 @@ from .models import Category, Product
 # Register your models here.
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    #listing what we need
-    list_display = ['name','slug']
-    #slug automatically populated
-    prepopulated_fields = {'slug':('name',)}
+    # listing what we need
+    list_display = ['name', 'slug']
+    # slug automatically populated
+    prepopulated_fields = {'slug': ('name',)}
+
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['title','author','slug','price','in_stock','created','updated']
-    list_filter = ['in_stock','is_active'] #filtering
-    list_editable = ['price','in_stock']   #editable
-    prepopulated_fields = {'slug':('title',)}
+    list_display = ['title', 'author', 'slug', 'price', 'in_stock', 'created', 'updated']
+    list_filter = ['in_stock', 'is_active']  # filtering
+    list_editable = ['price', 'in_stock']  # editable
+    prepopulated_fields = {'slug': ('title',)}
