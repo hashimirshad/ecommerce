@@ -97,6 +97,7 @@ celerybeat-schedule.*
 *.sage.py 
 
 # Environments 
+.myvenv/
 .env 
 .venv 
 env/ 
@@ -134,4 +135,3 @@ GitHub.sublime-settings
 # Database
 db.sqlite3
 # Static folder at project root
-/static/

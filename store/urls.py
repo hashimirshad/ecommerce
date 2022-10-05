@@ -5,10 +5,10 @@ from . import views
 app_name ='store'
 urlpatterns = [
     #home page
-    path('',views.all_products, name='all_products'),
+    path('',views.products_all, name='products_all'),
     #individual product details page first slug is data type and second is the value
-    path('item/<slug:slug>/',views.product_detail,name='product_detail'),
+    path('<slug:slug>',views.product_detail,name='product_detail'),
     #individual cateogory details
-    path('search/<slug:category_slug>/',views.category_list,name='category_list'),
+    path('shop/<slug:category_slug>/',views.category_list,name='category_list'),
 
 ]
