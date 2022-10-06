@@ -39,10 +39,12 @@
                 </select>
                 <button type="button" id="update-button" data-index="{{product.id}}"
                   class="btn btn-outline-secondary btn-sm update-button">
+                  <!--intializing update button,data index give separate value for each button-->
                   Update
                 </button>
                 <button type="button" id="delete-button" data-index="{{product.id}}"
                   class="btn btn-outline-secondary btn-sm delete-button">
+                  <!--intializing delete button,data index give separate value for each button-->
                   Delete
                 </button>
               </div>
@@ -60,21 +62,27 @@
   </div>
 </main>
 
+<!--ajax first delete from cookies session, then go to the views update the data from server using code after success-->
 <script>
   // Delete Item
-  $(document).on('click', '.delete-button', function (e) {
+  $(document).on('click', '#delete-button', function (e) {
     e.preventDefault();
-    var prodid = $(this).data('index');
+    var prodid = $(this).data(
+    'index'); /*creating variable using index it will result product id above delete section*/
     $.ajax({
       type: 'POST',
       url: '{% url "basket:basket_delete" %}',
+      /*deleting section*/
       data: {
         productid: $(this).data('index'),
+        /*button index to distinguish every button diffrent product*/
         csrfmiddlewaretoken: "{{csrf_token}}",
-        action: 'post'
+        action: 'post' /*reverse:action will show view and it will locate url*/
       },
+      /*removing data from backend after session*/
       success: function (json) {
-        $('.product-item[data-index="' + prodid + '"]').remove();
+        $('.product-item[data-index="' + prodid + '"]')
+      .remove(); /*removing, product-item refering to line 12 class container*/
         document.getElementById("subtotal").innerHTML = json.subtotal;
         document.getElementById("basket-qty").innerHTML = json.qty
       },
@@ -85,17 +93,19 @@
   // Update Item
   $(document).on('click', '.update-button', function (e) {
     e.preventDefault();
-    var prodid = $(this).data('index');
+    var prodid = $(this).data('index'); /*prodid= product id*/
     $.ajax({
       type: 'POST',
       url: '{% url "basket:basket_update" %}',
       data: {
         productid: $(this).data('index'),
         productqty: $('#select' + prodid + ' option:selected').text(),
+        /* selected number will replace the text*/
         csrfmiddlewaretoken: "{{csrf_token}}",
-        action: 'post'
+        action: 'post' /*reverse:action will show view and it will locate url*/
       },
       success: function (json) {
+        /*returning value from view as json file*/
         document.getElementById("basket-qty").innerHTML = json.qty
         document.getElementById("subtotal").innerHTML = json.subtotal
       },

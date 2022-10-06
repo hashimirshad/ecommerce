@@ -1,4 +1,5 @@
 # model(functinalities) basket,functionality,call view
+# Basket is called in context_processor so site wide update values,view only update views
 from decimal import Decimal
 
 from store.models import Product
@@ -22,6 +23,7 @@ class Basket():
         # adding and updating the users basket session data
         product_id = str(product.id)
         if product_id in self.basket:
+            # if add same product again the qty replaced by new qty number else new creation
             self.basket[product_id]['qty'] = qty
         else:
             self.basket[product_id] = {'price': str(product.price), 'qty': qty}
@@ -62,7 +64,7 @@ class Basket():
         """
         product_id = str(product)
         if product_id in self.basket:
-            self.basket[product_id]['qty'] = qty
+            self.basket[product_id]['qty'] = qty  # chang new qty value corresponding product id
         self.save()
 
     def get_total_price(self):
@@ -71,14 +73,14 @@ class Basket():
 
     def delete(self, product):
         """
-        Delete item from session data
+        Delete item from session data ,
         """
-        product_id = str(product)
+        product_id = str(product)  # print(type(product_id))
 
-        if product_id in self.basket:
+        if product_id in self.basket:  # finding product in the basket
             del self.basket[product_id]
-            print(product_id)
+            # print(product_id) testing method for console
             self.save()
 
-    def save(self):
+    def save(self):  # modified self.save() call this function
         self.session.modified = True

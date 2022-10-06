@@ -62,8 +62,9 @@
                 productid: $('#add-button').val(),
                 productqty: $('#select option:selected').text(),
                 csrfmiddlewaretoken: "{{csrf_token}}",
-                action: 'post'
+                action: 'post' /* going basket/views and def get method for session*/ /*reverse:action will show view and it will locate url*/
             },
+            /*removing data from backend after session*/
             success: function (json) {
                 /* console.log(json) ,console checking data,inner HTML will allow go to that session ,basket-qty cart icon*/
                 document.getElementById("basket-qty").innerHTML = json.qty
