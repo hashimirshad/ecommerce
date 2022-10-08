@@ -4,7 +4,7 @@ from .models import Category, Product
 
 
 # product list
-def products_all(request):
+def product_all(request):
     # product manager is used to show only active objects turned in to product(second product it will search for the product manager)
     products = Product.products.all()
     #  render load the data and html
