@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'store',
     'basket',
+    'account',
 ]
 
 MIDDLEWARE = [
@@ -106,3 +107,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = 'media/'
 # import os will allow access directory system
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Custom user model
+AUTH_USER_MODEL = 'account.UserBase' #where the class file
+LOGIN_REDIRECT_URL = '/account/dashboard' #url to look when user viwes in action
+LOGIN_URL = '/account/login/'

@@ -8,7 +8,7 @@ from .basket import Basket
 
 def basket_summary(request):
     basket = Basket(request)  # basket session data available becuse of context_processor
-    return render(request, 'store/basket/summary.html', {'basket': basket})
+    return render(request, 'basket/summary.html', {'basket': basket})
 
 
 def basket_add(request):

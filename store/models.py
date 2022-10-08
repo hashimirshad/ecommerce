@@ -1,10 +1,5 @@
-from distutils.command.upload import upload
-from email.policy import default
-from tabnanny import verbose
-from unicodedata import category
-from unittest.util import _MAX_LENGTH
 
-from django.contrib.auth.models import User
+from django.conf import settings #calling user model from settings used in created_by
 from django.db import models
 from django.urls import reverse  # tool alllow us to build url
 
@@ -35,7 +30,8 @@ class Product(models.Model):
     # on_delete=models.CASCADE will delete the product if catogory is deleted ,product is relation name
     category = models.ForeignKey(Category, related_name='product', on_delete=models.CASCADE)
     # delete if user deleted ,relation name
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_creator')
+    #auth_user_model is calling from core/settings.py 
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='product_creator')
     title = models.CharField(max_length=255)
     # if no author defult name admin will given
     author = models.CharField(max_length=255, default='admin')

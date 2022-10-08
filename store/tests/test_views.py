@@ -9,7 +9,7 @@ from django.test import Client, TestCase  # django frame works
 from django.urls import reverse
 
 from store.models import Category, Product
-from store.views import products_all  # homepage view
+from store.views import product_all  # homepage view
 
 
 # skip is used to avoid any unwanted tests
@@ -53,8 +53,8 @@ class TestViewResponses(TestCase):
         
         engine = import_module(settings.SESSION_ENGINE)
         request.session = engine.SessionStore()
-        response = products_all(request)
+        response = product_all(request)
         html = response.content.decode('utf8')
-        self.assertIn('<title>Bookstore</title>', html)
+        self.assertIn('<title>BookStore</title>', html)
         self.assertEqual(response.status_code, 200)
         self.assertTrue(html.startswith('\n<!DOCTYPE html>\n'))
