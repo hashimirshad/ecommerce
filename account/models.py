@@ -1,5 +1,6 @@
 # completely creating new model insted extending existing django user model
-# settings--> add model ,and custom user model credentiols
+# settings--> add model ,and custom user model credentiols ,so we can access account app by imprting setting
+#also change store/model.py chane user data collection by import django.auth.user to import setting 
 from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,PermissionsMixin)
 #abstract overide the account management of super user,baseuser to build our own  user model,permission for new model
 from django.core.mail import send_mail

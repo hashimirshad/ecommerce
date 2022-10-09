@@ -1,0 +1,8 @@
+<!--auto escape is security feature in wich the data is not editable by user so prevent cross site scripting -->
+{% autoescape off %}
+Hi {{ user.user_name }},
+
+Your account has successfully created. Please click below link to activate your account
+<!--mail included url -->
+http://{{ domain }}{% url 'account:activate' uidb64=uid token=token %}
+{% endautoescape %}
