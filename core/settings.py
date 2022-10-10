@@ -110,5 +110,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Custom user model
 AUTH_USER_MODEL = 'account.UserBase' #where the class file
-LOGIN_REDIRECT_URL = '/account/dashboard' #url to look when user viwes in action
+LOGIN_REDIRECT_URL = '/account/dashboard' #url to look when user login viwes in action
 LOGIN_URL = '/account/login/'
+
+#PASSWORD+RESET_TIMEOUT_DAYS =2 will give howmany days will valid the tokken data visit documentation
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
