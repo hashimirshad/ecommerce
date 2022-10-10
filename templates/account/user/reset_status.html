@@ -27,7 +27,7 @@
                     <div class="row">
                         <div class="col-12 col-lg-6  mx-auto">
                             <div class="p-4">
-                                {% if 'email' in request.get_full_path %}
+                                {% if 'email' in request.get_full_path %} <!--full url-->
                                         <h3 class="mb-4">Password Reset Success</h3>
                                         <p>Check your email for instructions</p>
                                 {% endif%}
