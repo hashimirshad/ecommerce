@@ -17,14 +17,18 @@ urlpatterns = [
     path('activate/<slug:uidb64>/<slug:token>/', views.account_activate, name='activate'),
     # Reset password
     path('password_reset/', auth_views.PasswordResetView.as_view(template_name="account/user/password_reset_form.html",
-                                                                 success_url='password_reset_email_confirm',
+                                                                 success_url='password_reset_email_confirm/',
                                                                  email_template_name='account/user/password_reset_email.html',
                                                                  form_class=PwdResetForm), name='pwdreset'),
     #redirecting to specific user for sending mail 
     path('password_reset_confirm/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(template_name='account/user/password_reset_confirm.html',
                                                                                                 success_url='/account/password_reset_complete/', 
+<<<<<<< HEAD
                                                                                                 form_class=PwdResetConfirmForm), # new email
                                                                                                 name="password_reset_confirm"),
+=======
+                                                                                                form_class=PwdResetConfirmForm),name="password_reset_confirm"),
+>>>>>>> 844bef9 (hashim)
     path('password_reset/password_reset_email_confirm/',
          TemplateView.as_view(template_name="account/user/reset_status.html"), name='password_reset_done'),
     path('password_reset_complete/',
