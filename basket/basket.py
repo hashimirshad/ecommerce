@@ -66,10 +66,23 @@ class Basket():
         if product_id in self.basket:
             self.basket[product_id]['qty'] = qty  # chang new qty value corresponding product id
         self.save()
-
-    def get_total_price(self):
-        # summing up the values of the cart
+    
+    #cart totel price
+    def get_subtotal_price(self):
         return sum(Decimal(item['price']) * item['qty'] for item in self.basket.values())
+
+    #totel price with delivery
+    def get_total_price(self):
+
+        subtotal = sum(Decimal(item['price']) * item['qty'] for item in self.basket.values())
+
+        if subtotal == 0:
+            shipping = Decimal(0.00)
+        else:
+            shipping = Decimal(11.50)
+
+        total = subtotal + Decimal(shipping)
+        return total
 
     def delete(self, product):
         """
