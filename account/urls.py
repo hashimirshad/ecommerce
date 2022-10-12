@@ -17,7 +17,7 @@ urlpatterns = [
     path('activate/<slug:uidb64>/<slug:token>/', views.account_activate, name='activate'),
     # Reset password
     path('password_reset/', auth_views.PasswordResetView.as_view(template_name="account/user/password_reset_form.html",
-                                                                 success_url='password_reset_email_confirm',
+                                                                 success_url='password_reset_email_confirm/',
                                                                  email_template_name='account/user/password_reset_email.html',
                                                                  form_class=PwdResetForm), name='pwdreset'),
     #redirecting to specific user for sending mail 
