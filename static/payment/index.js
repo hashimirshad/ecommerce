@@ -20,7 +20,7 @@ base: {
 
 var card = elements.create("card", { style: style });
 card.mount("#card-element");
-
+//error on top of the payment
 card.on('change', function(event) {
 var displayError = document.getElementById('card-errors')
 if (event.error) {
@@ -47,14 +47,14 @@ var postCode = document.getElementById("postCode").value;
     type: "POST",
     url: 'http://127.0.0.1:8000/orders/add/',
     data: {
-      order_key: clientsecret,
+      order_key: client_secret,
       csrfmiddlewaretoken: CSRF_TOKEN,
       action: "post",
     },
     success: function (json) {
       console.log(json.success)
 
-      stripe.confirmCardPayment(clientsecret, {
+      stripe.confirmCardPayment(client_secret, {
         payment_method: {
           card: card,
           billing_details: {

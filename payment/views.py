@@ -26,7 +26,7 @@ def BasketView(request):
     #basket is session make intent to sent to stripe
     basket = Basket(request) 
     total = str(basket.get_total_price())#sring
-    total = total.replace('.', '') # what u mean by .
+    total = total.replace('.', '') # what u mean by . for stripe integer only
     total = int(total) # integer totel
 
     stripe.api_key = 'sk_test_51LrnhHSB7ADfnySMP7Ef2EbluaBBBnPeIWlEg2qT0PkRXSHtkktIj1x8EKswvnjede7jaRDb06lSozUn2KlLwhCT00N3nKSPrT' #stripe api
@@ -35,7 +35,7 @@ def BasketView(request):
         currency='inr',
         metadata={'userid': request.user.id} #maching up user with payment
     )
-    # rendering with user secret key with payment template
+    # rendering with user secret key with payment template,sending before payment page so we  can create user specific payment button
     return render(request, 'payment/home.html', {'client_secret': intent.client_secret})
 
 

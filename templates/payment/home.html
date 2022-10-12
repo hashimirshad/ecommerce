@@ -129,12 +129,13 @@
                 </div>
                 <hr class="my-4">
                 <h4 class="mb-3">Payment</h4>
+                
                 <label for="card-element">Credit or debit card</label>
-                <input div id="card-element" class="form-control form-control-payment">
+                <div id="card-element">
                   <!-- Payment elements will appear here -->
                 </div>
                 <hr class="my-4">
-                <!--button will create data with secret key-->
+                <!--secret key will included with payment button so when we pay direct to the payment portal post method-->
                 <button id="submit" class="btn btn-primary w-100 fw-bold" data-secret="{{ client_secret }}">Pay</button>
               </form>
             </div>
@@ -152,5 +153,7 @@
 </script>
 <script src="https://js.stripe.com/v3/"></script>
 <script src="{% static 'payment/index.js' %}" data-rel-js></script>
-
+<script>
+  cardElement.mount('#card-element');
+</script>
 {% endblock %}
