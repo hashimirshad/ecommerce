@@ -25,6 +25,7 @@ urlpatterns = [
                                                                                                 success_url='/account/password_reset_complete/', 
                                                                                                 form_class=PwdResetConfirmForm), # new email
                                                                                                 name="password_reset_confirm"),
+    #return after reset
     path('password_reset/password_reset_email_confirm/',
          TemplateView.as_view(template_name="account/user/reset_status.html"), name='password_reset_done'),
     path('password_reset_complete/',
