@@ -24,7 +24,7 @@ urlpatterns = [
     path('basket/', include('basket.urls', namespace='basket')),
     path('payment/', include('payment.urls', namespace='payment')),
     path('account/', include('account.urls', namespace='account')),
-   # path('orders/', include('orders.urls', namespace='orders')),
+    path('orders/', include('orders.urls', namespace='orders')),
 ]
 
 # the (errors will show) urls when debug is TRUE in setting.py

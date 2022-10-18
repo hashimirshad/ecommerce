@@ -42,19 +42,20 @@ var custAdd = document.getElementById("custAdd").value;
 var custAdd2 = document.getElementById("custAdd2").value;
 var postCode = document.getElementById("postCode").value;
 
+//sending server to inform about started the payment using clintsecret order_key to data base and payment succeeded payment status to true
+$.ajax({
+  type: "POST",
+  url: 'http://127.0.0.1:8000/orders/add/',
+  data: {
+    order_key: clientsecret, //data sending according to this
+    csrfmiddlewaretoken: CSRF_TOKEN,//csrf tokken from home.html post method
+    action: "post",
+  },
+  success: function (json) {
+    console.log(json.success)
 
-  $.ajax({
-    type: "POST",
-    url: 'http://127.0.0.1:8000/orders/add/',
-    data: {
-      order_key: client_secret,
-      csrfmiddlewaretoken: CSRF_TOKEN,
-      action: "post",
-    },
-    success: function (json) {
-      console.log(json.success)
-
-      stripe.confirmCardPayment(client_secret, {
+      //to confirm ordersending data to stripe 
+      stripe.confirmCardPayment(clientsecret, {
         payment_method: {
           card: card,
           billing_details: {
@@ -80,7 +81,6 @@ var postCode = document.getElementById("postCode").value;
           }
         }
       });
-
     },
     error: function (xhr, errmsg, err) {},
   });
@@ -88,3 +88,4 @@ var postCode = document.getElementById("postCode").value;
 
 
 });
+
