@@ -1,5 +1,5 @@
 from decimal import Decimal
-from django.conf import settings # to access user information we declared custom user model in setting
+from django.conf import settings # (foreign key ACCESS) to access user information we declared custom user model in setting
 from django.db import models
 
 from store.models import Product
@@ -18,7 +18,7 @@ class Order(models.Model):
     updated = models.DateTimeField(auto_now=True)
     total_paid = models.DecimalField(max_digits=5, decimal_places=2)
     #order key is assosiated with client secret so we can confirm the payment from the stripe using this data
-    order_key = models.CharField(max_length=200)
+    order_key = models.CharField(max_length=200)#unique  key
     billing_status = models.BooleanField(default=False) # defult false data collected from stripe and it willl change to true
 
 
@@ -28,7 +28,7 @@ class Order(models.Model):
     def __str__(self):
         return str(self.created)
 
-
+# each order may have many item one to many 
 class OrderItem(models.Model):
     #collecting data to show ordered product becuse price will change in product table so we want to store purchased price
     order = models.ForeignKey(Order,
@@ -37,7 +37,7 @@ class OrderItem(models.Model):
     product = models.ForeignKey(Product,
                                 related_name='order_items',
                                 on_delete=models.CASCADE)
-    price = models.DecimalField(max_digits=5, decimal_places=2)
+    price = models.DecimalField(max_digits=5, decimal_places=2) #to store purchased price & quantity
     quantity = models.PositiveIntegerField(default=1)
 
     def __str__(self):

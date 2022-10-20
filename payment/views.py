@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.base import TemplateView
 
 from basket.basket import Basket
-#from orders.views import payment_confirmation
+from orders.views import payment_confirmation
 
 
 
@@ -32,3 +32,33 @@ def BasketView(request):
     # rendering with user secret key with payment template,sending before payment page so we  can create user specific payment button
     return render(request, 'payment/home.html', {'client_secret': intent.client_secret})
 
+@csrf_exempt
+def stripe_webhook(request): #capture payment succeeded from strip and change billing status to true 
+    payload = request.body
+    event = None
+
+    try:
+        event = stripe.Event.construct_from(
+            json.loads(payload), stripe.api_key #stripe api
+        )
+    except ValueError as e:
+        print(e)
+        return HttpResponse(status=400)
+
+    # Handle the event
+    if event.type == 'payment_intent.succeeded': #stripe event when successful
+        payment_confirmation(event.data.object.client_secret) # finding order using client secret and orders.view
+
+    else:
+        print('Unhandled event type {}'.format(event.type))
+
+    return HttpResponse(status=200)
+
+def order_placed(request):
+    basket = Basket(request)
+    basket.clear() # add function clear to basket/basket.py
+    return render(request, 'payment/orderplaced.html')
+
+
+class Error(TemplateView):
+    template_name = 'payment/error.html'

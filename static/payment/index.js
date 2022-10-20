@@ -45,10 +45,10 @@ var postCode = document.getElementById("postCode").value;
 //sending server to inform about started the payment using clintsecret order_key to data base and payment succeeded payment status to true
 $.ajax({
   type: "POST",
-  url: 'http://127.0.0.1:8000/orders/add/',
+  url: 'http://127.0.0.1:8000/orders/add/', //post data
   data: {
-    order_key: clientsecret, //data sending according to this
-    csrfmiddlewaretoken: CSRF_TOKEN,//csrf tokken from home.html post method
+    order_key: clientsecret,
+    csrfmiddlewaretoken: CSRF_TOKEN, //data sending according to this defined in order key in order class session data    csrfmiddlewaretoken: CSRF_TOKEN,//csrf tokken from home.html post method
     action: "post",
   },
   success: function (json) {

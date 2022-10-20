@@ -10,3 +10,8 @@ sudo apt update
 sudo apt install stripe
 stripe login
 stripe listen
+# Stripe Payment
+# PUBLISHABLE_KEY = ''
+# SECRET_KEY = ''
+# STRIPE_ENDPOINT_SECRET = ''
+# stripe listen --forward-to localhost:8000/payment/webhook/

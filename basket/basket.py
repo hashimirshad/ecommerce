@@ -2,6 +2,8 @@
 # Basket is called in context_processor so site wide update values,view only update views
 from decimal import Decimal
 
+from django.conf import settings
+
 from store.models import Product
 
 
@@ -13,10 +15,10 @@ class Basket():
         # building session, request.session wil look session data from http send by client
         self.session = request.session
         # session key available already
-        basket = self.session.get('skey')
+        basket = self.session.get('settings.BASKET_SESSION_ID')
         # if session not available create one
-        if 'skey' not in request.session:
-            basket = self.session['skey'] = {}
+        if 'settings.BASKET_SESSION_ID' not in request.session:
+            basket = self.session['settings.BASKET_SESSION_ID'] = {}
         self.basket = basket
 
     def add(self, product, qty):
@@ -94,6 +96,10 @@ class Basket():
             del self.basket[product_id]
             # print(product_id) testing method for console
             self.save()
+    def clear(self):
+        # Remove basket from session
+        del self.session['settings.BASKET_SESSION_ID'] #skey(settings.BASKET_SESSION_ID) intialized when created
+        self.save()
 
     def save(self):  # modified self.save() call this function
         self.session.modified = True

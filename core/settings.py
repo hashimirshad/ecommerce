@@ -10,7 +10,7 @@ SECRET_KEY = 'django-insecure-lgpe*4=lbk7&vo)(gfi1rb++iim&#lim-5o6y!0!=zz=uji&=m
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['yourdomain.com', '127.0.0.1']
+ALLOWED_HOSTS = ['yourdomain.com', '127.0.0.1','localhost']
 
 
 # Application definition
@@ -111,6 +111,9 @@ MEDIA_URL = 'media/'
 # import os will allow access directory system
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# Basket session id  so we can call basket session data from setting (skey changed to settings.basket)
+BASKET_SESSION_ID = 'basket'
+
 # Custom user model
 AUTH_USER_MODEL = 'account.UserBase' #where the class file
 LOGIN_REDIRECT_URL = '/account/dashboard' #url to look when user login viwes in action
@@ -119,3 +122,10 @@ LOGIN_URL = '/account/login/'
 #PASSWORD+RESET_TIMEOUT_DAYS =2 will give howmany days will valid the tokken data visit documentation
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Stripe Payment
+PUBLISHABLE_KEY = 'pk_test_51LrnhHSB7ADfnySMZhBoCO5xXBRuY3eaYenatu878oanxTSjsJieNUFWlmjKOF4or7oqV5xFPosnu9Wck9SrgAt900US6O66yI'
+SECRET_KEY = 'sk_test_51LrnhHSB7ADfnySMP7Ef2EbluaBBBnPeIWlEg2qT0PkRXSHtkktIj1x8EKswvnjede7jaRDb06lSozUn2KlLwhCT00N3nKSPrT'
+STRIPE_ENDPOINT_SECRET = 'whsec_63bdeb2ebb7044e6bb3ce87096957016eaf681e0b2291d90aaab4921fdd9337e'
+
+# stripe listen --forward-to localhost:8000/payment/webhook/
