@@ -4,7 +4,7 @@ from django.db import models
 from django.urls import reverse  # tool alllow us to build url
 
 
-# product manager to filter is active only show in the whole site using product manager
+# product manager to filter is active only show in the whole site using product manager filter out for any quary
 class ProductManager(models.Manager):
     def get_queryset(self):
         return super(ProductManager, self).get_queryset().filter(is_active=True)
