@@ -1,4 +1,5 @@
 import json
+import os
 
 import stripe
 from django.contrib.auth.decorators import login_required
@@ -6,11 +7,19 @@ from django.http.response import HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.base import TemplateView
+from django.conf import settings
 
 from basket.basket import Basket
 from orders.views import payment_confirmation
 
+def order_placed(request):
+    basket = Basket(request)
+    basket.clear() # add function clear to basket/basket.py
+    return render(request, 'payment/orderplaced.html')
 
+
+class Error(TemplateView):
+    template_name = 'payment/error.html'
 
 
 @login_required #payment page
@@ -22,7 +31,7 @@ def BasketView(request):
     total = int(total) # integer totel
    #send stripe intent
    
-    stripe.api_key = 'sk_test_51LrnhHSB7ADfnySMP7Ef2EbluaBBBnPeIWlEg2qT0PkRXSHtkktIj1x8EKswvnjede7jaRDb06lSozUn2KlLwhCT00N3nKSPrT' #stripe api
+    stripe.api_key =settings.STRIPE_SECRET_KEY #stripe api
     intent = stripe.PaymentIntent.create(
         amount=total,
         currency='inr',
@@ -30,7 +39,8 @@ def BasketView(request):
         
     )
     # rendering with user secret key with payment template,sending before payment page so we  can create user specific payment button
-    return render(request, 'payment/home.html', {'client_secret': intent.client_secret})
+    return render(request, 'payment/payment_form.html', {'client_secret': intent.client_secret, 
+                                                            'STRIPE_PUBLISHABLE_KEY': os.environ.get('STRIPE_PUBLISHABLE_KEY')})
 
 @csrf_exempt
 def stripe_webhook(request): #capture payment succeeded from strip and change billing status to true 
@@ -54,11 +64,3 @@ def stripe_webhook(request): #capture payment succeeded from strip and change bi
 
     return HttpResponse(status=200)
 
-def order_placed(request):
-    basket = Basket(request)
-    basket.clear() # add function clear to basket/basket.py
-    return render(request, 'payment/orderplaced.html')
-
-
-class Error(TemplateView):
-    template_name = 'payment/error.html'

@@ -3,7 +3,8 @@
 stripe event , to ckeck monitor payment and data 
 install cli to intract from terminal we can see all stripe actions 
 https://stripe.com/docs/stripe-cli#login-account
-apt method
+
+istalling via apt method
 curl -s https://packages.stripe.dev/api/security/keypair/stripe-cli-gpg/public | gpg --dearmor | sudo tee /usr/share/keyrings/stripe.gpg
 echo "deb [signed-by=/usr/share/keyrings/stripe.gpg] https://packages.stripe.dev/stripe-cli-debian-local stable main" | sudo tee -a /etc/apt/sources.list.d/stripe.list
 sudo apt update
@@ -14,4 +15,8 @@ stripe listen
 # PUBLISHABLE_KEY = ''
 # SECRET_KEY = ''
 # STRIPE_ENDPOINT_SECRET = ''
+# stripe listen --forward-to localhost:8000/payment/webhook/
+
+the following commands is mandatary to run stripe cmd for captuaring the webhook othwer wise 127.0.0.1/webhook doesn't have any data(stripe datais not available here)
+stripe listen
 # stripe listen --forward-to localhost:8000/payment/webhook/

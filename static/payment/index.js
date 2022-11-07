@@ -1,7 +1,7 @@
 //'use strict',https://stripe.com/docs/payments/quickstart;
 //import stripe in views
 
-var stripe = Stripe('pk_test_51LrnhHSB7ADfnySMZhBoCO5xXBRuY3eaYenatu878oanxTSjsJieNUFWlmjKOF4or7oqV5xFPosnu9Wck9SrgAt900US6O66yI');
+var stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
 
 var elem = document.getElementById('submit'); // finding sumbmit button
 clientsecret = elem.getAttribute('data-secret'); //data-secret created by stripe for each user

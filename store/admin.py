@@ -1,20 +1,43 @@
+from django import forms
 from django.contrib import admin
+from mptt.admin import MPTTModelAdmin
 
-from .models import Category, Product
+# importing models
+from .models import (
+    Category,
+    Product,
+    ProductImage,
+    ProductSpecification,
+    ProductSpecificationValue,
+    ProductType,
+)
+
+admin.site.register(Category, MPTTModelAdmin)
+
+# look into uml digram for the explanation
+# using inline both table filling at same timt
+class ProductSpecificationInline(admin.TabularInline):
+    model = ProductSpecification
 
 
-# Register your models here.
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    # listing what we need
-    list_display = ['name', 'slug']
-    # slug automatically populated
-    prepopulated_fields = {'slug': ('name',)}
+@admin.register(ProductType)
+class ProductTypeAdmin(admin.ModelAdmin):
+    inlines = [
+        ProductSpecificationInline,
+    ]
+
+
+class ProductImageInline(admin.TabularInline):
+    model = ProductImage
+
+
+class ProductSpecificationValueInline(admin.TabularInline):
+    model = ProductSpecificationValue
 
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['title', 'author', 'slug', 'price', 'in_stock', 'created', 'updated']
-    list_filter = ['in_stock', 'is_active']  # filtering
-    list_editable = ['price', 'in_stock']  # editable
-    prepopulated_fields = {'slug': ('title',)}
+    inlines = [
+        ProductSpecificationValueInline,
+        ProductImageInline,
+    ]
