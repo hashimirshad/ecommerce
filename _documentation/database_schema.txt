@@ -55,3 +55,14 @@ Table ProductImage as PI {
   updated_at timestamp
 }
 Ref: P.id < PI.product
+
+Table Customer as Cu {
+  id int [pk, increment]
+  email email
+  name varchar
+  mobile varchar
+  is_active int
+  is_staff int
+  created datetime
+  updated datetime
+}

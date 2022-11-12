@@ -11,9 +11,7 @@ urlpatterns = [
     # auth_views allow prebuild login logout and we can use view inside url
     path(
         "login/",
-        auth_views.LoginView.as_view(
-            template_name="account/login.html", form_class=UserLoginForm
-        ),
+        auth_views.LoginView.as_view(template_name="account/login.html", form_class=UserLoginForm),
         name="login",
     ),
     path(
@@ -23,9 +21,7 @@ urlpatterns = [
     ),
     path("register/", views.account_register, name="register"),
     # activate url
-    path(
-        "activate/<slug:uidb64>/<slug:token>/", views.account_activate, name="activate"
-    ),
+    path("activate/<slug:uidb64>/<slug:token>/", views.account_activate, name="activate"),
     # Reset password
     path(
         "password_reset/",
@@ -67,4 +63,12 @@ urlpatterns = [
         TemplateView.as_view(template_name="account/dashboard/delete_confirm.html"),
         name="delete_confirmation",
     ),
+    # address urls
+    path("addresses/", views.view_address, name="addresses"),
+    path("add_address/", views.add_address, name="add_address"),
+    path("addresses/edit/<slug:id>/", views.edit_address, name="edit_address"),
+    path(
+        "addresses/delete/<slug:id>/", views.delete_address, name="delete_address"
+    ),  # <slug:id> will give uuid format for url
+    path("addresses/set_default/<slug:id>/", views.set_default, name="set_default"),
 ]

@@ -127,7 +127,7 @@ STRIPE_ENDPOINT_SECRET = "whsec_63bdeb2ebb7044e6bb3ce87096957016eaf681e0b2291d90
 # stripe listen --forward-to localhost:8000/payment/webhook/
 
 # Custom user model
-AUTH_USER_MODEL = "account.UserBase"  # where the class file
+AUTH_USER_MODEL = "account.Customer"  # where the class file
 LOGIN_REDIRECT_URL = "/account/dashboard"  # url to look when user login viwes in action
 LOGIN_URL = "/account/login/"
 

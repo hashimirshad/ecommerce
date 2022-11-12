@@ -1,6 +1,6 @@
 from .base import *
 
-# from .settings import *,os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings.dev_debug")
+# from .settings import *,os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings.dev_debug") manage.py
 # debug_toolbar settings
 if DEBUG:
     INTERNAL_IPS = ("127.0.0.1",)
