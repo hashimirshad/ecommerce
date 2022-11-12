@@ -78,6 +78,8 @@ class Product(models.Model):
 
     product_type = models.ForeignKey(ProductType, on_delete=models.RESTRICT)
     category = models.ForeignKey(Category, on_delete=models.RESTRICT)
+    # link table between product and user
+    users_wishlist = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="user_wishlist", blank=True)
     title = models.CharField(
         verbose_name=_("title"),
         help_text=_("Required"),

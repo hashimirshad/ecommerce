@@ -71,4 +71,8 @@ urlpatterns = [
         "addresses/delete/<slug:id>/", views.delete_address, name="delete_address"
     ),  # <slug:id> will give uuid format for url
     path("addresses/set_default/<slug:id>/", views.set_default, name="set_default"),
+    # wishlist
+    path("wishlist", views.wishlist, name="wishlist"),
+    path("wishlist/add_to_wishlist/<int:id>", views.add_to_wishlist, name="user_wishlist"),
+    # {% url "account:user_wishlist" product.id  %} becuse we sending <int:id> we want to cross chek
 ]
